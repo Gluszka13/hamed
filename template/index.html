@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Flask Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4f8;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            color: #333;
+        }
+        header {
+            background-color: #4a90e2;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            font-size: 1.5rem;
+        }
+        main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        input[type="text"] {
+            width: 80%;
+            padding: 0.5rem;
+            margin: 1rem 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        button:hover {
+            background-color: #357ab8;
+        }
+        footer {
+            text-align: center;
+            padding: 1rem;
+            background-color: #f0f4f8;
+            color: #666;
+        }
+        ul {
+            text-align: left;
+            list-style: none;
+            padding: 0;
+            margin: 1rem 0;
+        }
+        ul li {
+            margin: 0.5rem 0;
+            padding: 0.5rem;
+            background-color: #e9f1fb;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        App in Flask
+    </header>
+    <main>
+        <div class="container">
+            <h2>Search for</h2>
+            <form method="POST">
+                <input type="text" name="text_input" placeholder="Please enter text...">
+                <br>
+                <button type="submit">Submit</button>
+            </form>
+            {% if message %}
+                <p><strong>{{ message }}</strong></p>
+            {% endif %}
+            <h3>Files in Directory:</h3>
+            <ul>
+                {% for file in files %}
+                    <li>{{ file }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </main>
+    <footer>
+        Aniela copyright &copy; 2024
+    </footer>
+</body>
+</html>
