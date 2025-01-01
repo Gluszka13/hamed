@@ -3,8 +3,12 @@ import subprocess
 
 app = Flask(__name__)
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route("/")
 def home():
+    return render_template("index.html")
+
+@app.route("/tool1")
+def tool1():
     message = ""   # Komunikat po wpisaniu frazy
     results = ""   # Wyniki narzędzia OSINT
     
@@ -29,7 +33,18 @@ def home():
         else:
             message = "Please enter a search phrase."
 
-    return render_template('index.html', message=message, results=results)
+    return render_template("tool1.html")
+
+# Podstrona Tool 2
+@app.route("/tool2")
+def tool2():
+    return render_template("tool2.html")
+
+# Podstrona Tool 3
+@app.route("/tool3")
+def tool3():
+    return render_template("tool3.html")
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080)

@@ -1,0 +1,107 @@
+/* Ogólne style */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    transition: background-color 0.3s, color 0.3s; /* Płynna zmiana między trybami */
+}
+
+/* Header */
+header {
+    text-align: center;
+    padding: 1.5rem;
+    background-color: #4a90e2;
+    color: white;
+    transition: background-color 0.3s, color 0.3s; /* Płynna zmiana między trybami */
+}
+
+h1 {
+    margin: 0;
+    font-size: 2.5rem;
+}
+
+p {
+    margin: 0.5rem 0 0;
+    font-size: 1.2rem;
+}
+
+/* Main */
+main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Kafelki */
+.tile-container {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.tile {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s, background-color 0.3s, color 0.3s; /* Płynna zmiana między trybami */
+    width: 200px;
+}
+
+.tile:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.tile a {
+    text-decoration: none;
+    color: #4a90e2;
+    font-size: 1.2rem;
+    font-weight: bold;
+    transition: color 0.3s; /* Płynna zmiana koloru linków */
+}
+
+/* Light mode (default) */
+body {
+    background-color: #f0f4f8;
+    color: #333;
+}
+
+header {
+    background-color: #4a90e2;
+    color: white;
+}
+
+.tile {
+    background-color: white;
+    color: #333;
+}
+
+.tile a {
+    color: #4a90e2;
+}
+
+/* Dark mode */
+body.dark-mode {
+    background-color: #2c2c2c;
+    color: #f0f4f8;
+}
+
+body.dark-mode header {
+    background-color: #1f1f1f;
+    color: #f0f4f8;
+}
+
+body.dark-mode .tile {
+    background-color: #333;
+    color: #f0f4f8;
+    box-shadow: 0 4px 6px rgba(255, 255, 255, 0.1); /* Lżejsze cienie w trybie ciemnym */
+}
+
+body.dark-mode .tile a {
+    color: #81d4fa; /* Jaśniejszy kolor linków w trybie ciemnym */
+}
