@@ -7,7 +7,7 @@ app = Flask(__name__)
 def home():
     return render_template("index.html")
 
-@app.route("/tool1")
+@app.route("/tool1", methods=['GET', 'POST'])
 def tool1():
     message = ""   # Komunikat po wpisaniu frazy
     results = ""   # Wyniki narzędzia OSINT
@@ -33,7 +33,7 @@ def tool1():
         else:
             message = "Please enter a search phrase."
 
-    return render_template("tool1.html")
+    return render_template("tool1.html", message=message, results=results)
 
 # Podstrona Tool 2
 @app.route("/tool2")
