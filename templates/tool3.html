@@ -3,9 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tool 3</title>
+    <title>Tool 2</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+    <style>
+        .tooltip {
+            position: absolute;
+            background-color: #f9c74f;
+            color: #333;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            font-size: 0.9rem;
+            display: none; /* Ukryty domyślnie */
+            z-index: 100;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const searchButton = document.querySelector('form button'); // Przycisk wyszukiwania
+            const form = document.querySelector('form'); // Formularz
+            const tooltip = document.createElement('div'); // Tworzymy dymek
+            tooltip.className = 'tooltip';
+            tooltip.textContent = 'Please, first pay';
+            document.body.appendChild(tooltip); // Dodajemy dymek do dokumentu
+
+            searchButton.addEventListener('click', (event) => {
+                event.preventDefault(); // Zatrzymaj domyślne zachowanie formularza
+
+                // Wylicz pozycję przycisku i ustaw pozycję dymka
+                const rect = searchButton.getBoundingClientRect();
+                tooltip.style.left = `${rect.left + window.pageXOffset}px`;
+                tooltip.style.top = `${rect.bottom + window.pageYOffset + 5}px`;
+                tooltip.style.display = 'block'; // Pokaż dymek
+
+                // Ukryj dymek po 3 sekundach
+                setTimeout(() => {
+                    tooltip.style.display = 'none';
+                }, 3000);
+            });
+        });
+    </script>
 </head>
 <body>
     <header>
@@ -13,7 +50,16 @@
         <button id="dark-mode-toggle">Toggle Dark Mode</button>
     </header>
     <main>
-        <p>This is Tool 1.</p>
+        <div class="tile-container">
+            <div class="tile">
+                <h2>Search Information</h2>
+                <form method="POST" action="/search">
+                    <label for="email" style="font-weight: bold;">Enter Email Address:</label>
+                    <input type="text" id="email" name="email" placeholder="e.g. example@example.com">
+                    <button type="submit">Search</button>
+                </form>
+            </div>
+        </div>
     </main>
 </body>
 </html>

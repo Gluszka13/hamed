@@ -1,7 +1,8 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, flash, redirect, url_for
 import subprocess
 
 app = Flask(__name__)
+app.secret_key = 'your_secret_key'  # Wymagane dla funkcji flash
 
 @app.route("/")
 def home():
@@ -35,9 +36,14 @@ def tool1():
 
     return render_template("tool1.html", message=message, results=results)
 
-# Podstrona Tool 2
-@app.route("/tool2")
+# Podstrona Tool 2 z obsługą flash
+@app.route("/tool2", methods=['GET', 'POST'])
 def tool2():
+    if request.method == 'POST':
+        # Wyświetlenie komunikatu „Please, first pay”
+        flash("Please, first pay", "info")
+        return redirect(url_for('tool2'))  # Odświeżenie strony
+
     return render_template("tool2.html")
 
 # Podstrona Tool 3
