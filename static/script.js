@@ -8,15 +8,17 @@ document.addEventListener("DOMContentLoaded", () => {
         body.classList.add("dark-mode");
     }
 
-    // Dodaj obsługę przycisku
-    toggleButton.addEventListener("click", () => {
-        body.classList.toggle("dark-mode");
+    // Dodaj obsługę przycisku tylko, jeśli istnieje
+    if (toggleButton) {
+        toggleButton.addEventListener("click", () => {
+            body.classList.toggle("dark-mode");
 
-        // Zapisz preferencje użytkownika w localStorage
-        if (body.classList.contains("dark-mode")) {
-            localStorage.setItem("darkMode", "enabled");
-        } else {
-            localStorage.setItem("darkMode", "disabled");
-        }
-    });
+            // Zapisz preferencje użytkownika w localStorage
+            if (body.classList.contains("dark-mode")) {
+                localStorage.setItem("darkMode", "enabled");
+            } else {
+                localStorage.setItem("darkMode", "disabled");
+            }
+        });
+    }
 });

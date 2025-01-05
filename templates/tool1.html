@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OSINT Search Tool</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -66,7 +68,8 @@
 </head>
 <body>
     <header>
-        OSINT Search Tool
+    <a href="/" style="text-decoration: none; color: inherit;">OSINT Search Tool</a>
+    <button id="dark-mode-toggle">Toggle Dark Mode</button>
     </header>
     <main>
         <div class="container">
