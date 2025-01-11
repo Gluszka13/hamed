@@ -1,5 +1,5 @@
-from flask import Flask, request, render_template, flash, redirect, url_for
-import subprocess
+from flask import Flask, request, render_template, flash, redirect, send_file, url_for
+import subprocess, os
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'  # Wymagane dla funkcji flash
@@ -39,12 +39,42 @@ def tool1():
 # Podstrona Tool 2 z obsługą flash
 @app.route("/tool2", methods=['GET', 'POST'])
 def tool2():
-    if request.method == 'POST':
-        # Wyświetlenie komunikatu „Please, first pay”
-        flash("Please, first pay", "info")
-        return redirect(url_for('tool2'))  # Odświeżenie strony
+    message = ""   # Komunikat po wpisaniu frazy
+    results = ""   # Wyniki narzędzia OSINT
+    report_file = ""  # Ścieżka do pliku HTML z raportem
 
-    return render_template("tool2.html")
+    # Ustaw bazowy folder projektu względem lokalizacji server.py
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    hamed_dir = os.path.join(base_dir, "hamed")  # Ścieżka do folderu `hamed`
+
+    if request.method == 'POST':
+        # Pobranie frazy z formularza
+        search_phrase = request.form.get('text_input', '')
+
+        if search_phrase:
+            message = f"You searched for: {search_phrase}"
+            try:
+                # Ścieżka do pliku raportu w folderze `hamed`
+                report_file = os.path.join(hamed_dir, f"whatsmyname_report_{search_phrase}.html")
+                
+                # Komenda uruchamiająca skrypt WhatsMyName
+                command = f"python3 WhatsMyName-Python/whatsmyname.py -u '{search_phrase}'"
+                process = subprocess.run(command, shell=True, capture_output=True, text=True)
+                
+                # Pobieranie wyników z procesu
+                if process.returncode == 0:
+                    if os.path.exists(report_file):
+                        return send_file(report_file)  # Zwraca wygenerowany raport jako stronę HTML
+                    else:
+                        results = "Report file not found, but command executed successfully."
+                else:
+                    results = f"Error: {process.stderr}"
+            except Exception as e:
+                results = f"An error occurred: {str(e)}"
+        else:
+            message = "Please enter a search phrase."
+
+    return render_template("tool2.html", message=message, results=results)
 
 # Podstrona Tool 3
 @app.route("/tool3")

@@ -3,63 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tool 2</title>
+    <title>OSINT Search Tool</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <script src="{{ url_for('static', filename='script.js') }}" defer></script>
     <style>
-        .tooltip {
-            position: absolute;
-            background-color: #f9c74f;
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4f8;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
             color: #333;
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
+        }
+        header {
+            background-color: #4a90e2;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            font-size: 1.5rem;
+        }
+        main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            font-size: 0.9rem;
-            display: none; /* Domyślnie ukryte */
-            z-index: 100;
+            text-align: center;
+            width: 50%;
+        }
+        input[type="text"] {
+            width: 80%;
+            padding: 0.5rem;
+            margin: 1rem 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        button:hover {
+            background-color: #357ab8;
+        }
+        pre {
+            background-color: #e9f1fb;
+            padding: 1rem;
+            border-radius: 5px;
+            overflow-x: auto;
+            text-align: left;
         }
     </style>
 </head>
 <body>
     <header>
-        <a href="/" style="text-decoration: none; color: inherit;">OSINT Search Tool</a>
-        <button id="dark-mode-toggle">Toggle Dark Mode</button>
+    <a href="/" style="text-decoration: none; color: inherit;">OSINT Search Tool</a>
+    <button id="dark-mode-toggle">Toggle Dark Mode</button>
     </header>
     <main>
-        <div class="tile-container">
-            <div class="tile">
-                <h2>Searching for connection between Email and Nickname</h2>
-                <form id="search-form" method="POST" action="/tool2">
-                    <label for="email" style="font-weight: bold;">Enter Email Address:</label>
-                    <input type="text" id="email" name="email" placeholder="e.g. example@example.com">
-                    
-                    <label for="nickname" style="font-weight: bold; margin-top: 1rem;">Enter Nickname:</label>
-                    <input type="text" id="nickname" name="nickname" placeholder="e.g. username123">
-                    
-                    <button type="submit" id="search-button">Search</button>
-                </form>
-                <div id="tooltip" class="tooltip">Please, first pay</div>
-            </div>
+        <div class="container">
+            <h2>Search for Information</h2>
+            <form method="POST">
+                <input type="text" name="text_input" placeholder="Enter a username..." required>
+                <br>
+                <button type="submit">Search</button>
+            </form>
+            {% if message %}
+                <p><strong>{{ message }}</strong></p>
+            {% endif %}
+            {% if results %}
+                <h3>Results:</h3>
+                <pre>{{ results }}</pre>
+            {% endif %}
         </div>
     </main>
-    <script>
-        // JavaScript to handle tooltip
-        const searchButton = document.getElementById('search-button');
-        const tooltip = document.getElementById('tooltip');
-
-        searchButton.addEventListener('click', (event) => {
-            event.preventDefault(); // Zatrzymaj domyślne zachowanie formularza
-
-            // Pokaż dymek
-            tooltip.style.display = 'block';
-            tooltip.style.left = `${searchButton.offsetLeft}px`;
-            tooltip.style.top = `${searchButton.offsetTop + searchButton.offsetHeight + 5}px`;
-
-            // Ukryj dymek po 3 sekundach
-            setTimeout(() => {
-                tooltip.style.display = 'none';
-            }, 3000);
-        });
-    </script>
 </body>
 </html>
