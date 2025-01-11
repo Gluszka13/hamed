@@ -1,3 +1,6 @@
 [submodule "Digital-Footprint-OSINT-Tool"]
 	path = Digital-Footprint-OSINT-Tool
 	url = https://github.com/Hamed233/Digital-Footprint-OSINT-Tool.git
+[submodule "WhatsMyName-Python"]
+	path = WhatsMyName-Python
+	url = https://github.com/C3n7ral051nt4g3ncy/WhatsMyName-Python.git
