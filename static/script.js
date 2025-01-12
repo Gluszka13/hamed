@@ -1,24 +1,18 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const toggleButton = document.getElementById("dark-mode-toggle");
-    const body = document.body;
+document.addEventListener('DOMContentLoaded', () => {
+    const darkModeToggle = document.getElementById('dark-mode-toggle');
 
-    // Sprawdź, czy w localStorage zapisany jest tryb ciemny
-    const darkMode = localStorage.getItem("darkMode");
-    if (darkMode === "enabled") {
-        body.classList.add("dark-mode");
+    // Ustawienie domyślnej ikony na podstawie stanu dark mode
+    if (document.body.classList.contains('dark-mode')) {
+        darkModeToggle.textContent = '☀️'; // Ikona słońca dla trybu ciemnego
+    } else {
+        darkModeToggle.textContent = '🌙'; // Ikona księżyca dla trybu jasnego
     }
 
-    // Dodaj obsługę przycisku tylko, jeśli istnieje
-    if (toggleButton) {
-        toggleButton.addEventListener("click", () => {
-            body.classList.toggle("dark-mode");
+    darkModeToggle.addEventListener('click', () => {
+        // Przełączanie klasy dla dark mode
+        const isDarkMode = document.body.classList.toggle('dark-mode');
 
-            // Zapisz preferencje użytkownika w localStorage
-            if (body.classList.contains("dark-mode")) {
-                localStorage.setItem("darkMode", "enabled");
-            } else {
-                localStorage.setItem("darkMode", "disabled");
-            }
-        });
-    }
+        // Zmiana ikony na podstawie aktualnego stanu dark mode
+        darkModeToggle.textContent = isDarkMode ? '☀️' : '🌙';
+    });
 });
