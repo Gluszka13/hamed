@@ -45,7 +45,6 @@ def tool2():
 
     # Ustaw bazowy folder projektu względem lokalizacji server.py
     base_dir = os.path.dirname(os.path.abspath(__file__))
-    hamed_dir = os.path.join(base_dir, "hamed")  # Ścieżka do folderu `hamed`
 
     if request.method == 'POST':
         # Pobranie frazy z formularza
@@ -55,7 +54,7 @@ def tool2():
             message = f"You searched for: {search_phrase}"
             try:
                 # Ścieżka do pliku raportu w folderze `hamed`
-                report_file = os.path.join(hamed_dir, f"whatsmyname_report_{search_phrase}.html")
+                report_file = os.path.join(base_dir, f"whatsmyname_report_{search_phrase}.html")
                 
                 # Komenda uruchamiająca skrypt WhatsMyName
                 command = f"python3 WhatsMyName-Python/whatsmyname.py -u '{search_phrase}'"
