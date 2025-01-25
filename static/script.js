@@ -4,24 +4,33 @@ document.addEventListener('DOMContentLoaded', () => {
     const resultsList = document.getElementById('results');
     const resultsContainer = document.getElementById('results-container');
 
-    // Ustawienie domyślnej ikony na podstawie stanu dark mode
-    if (document.body.classList.contains('dark-mode')) {
-        darkModeToggle.textContent = '☀️'; // Ikona słońca dla trybu ciemnego
+    // Sprawdzenie zapisanej wartości trybu w LocalStorage
+    const isDarkMode = localStorage.getItem('dark-mode') === 'true';
+
+    // Ustawienie odpowiedniej klasy na podstawie zapisanej wartości
+    if (isDarkMode) {
+        document.body.classList.add('dark-mode');
+        darkModeToggle.textContent = '☀️'; // Ikona słońca
     } else {
-        darkModeToggle.textContent = '🌙'; // Ikona księżyca dla trybu jasnego
+        darkModeToggle.textContent = '🌙'; // Ikona księżyca
     }
 
+    // Obsługa przycisku przełączania trybu ciemnego
     darkModeToggle.addEventListener('click', () => {
-        // Przełączanie klasy dla dark mode
-        const isDarkMode = document.body.classList.toggle('dark-mode');
+        // Przełączanie klasy dla trybu ciemnego
+        const darkModeEnabled = document.body.classList.toggle('dark-mode');
 
-        // Zmiana ikony na podstawie aktualnego stanu dark mode
-        darkModeToggle.textContent = isDarkMode ? '☀️' : '🌙';
+        // Zapisanie aktualnego stanu w LocalStorage
+        localStorage.setItem('dark-mode', darkModeEnabled);
+
+        // Zmiana ikony na podstawie aktualnego stanu
+        darkModeToggle.textContent = darkModeEnabled ? '☀️' : '🌙';
     });
 
-    // Obsługa formularza wyszukiwania
-    resultsContainer.style.display = 'none'; // Ukryj sekcję wyników na start
+    // Ukrywanie sekcji wyników na start
+    resultsContainer.style.display = 'none';
 
+    // Obsługa formularza wyszukiwania
     form.addEventListener('submit', async (event) => {
         event.preventDefault(); // Zapobiega przeładowaniu strony
         resultsList.innerHTML = ''; // Czyści poprzednie wyniki

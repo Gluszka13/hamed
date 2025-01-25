@@ -6,14 +6,12 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    transition: background-color 0.3s, color 0.3s;
-    background: linear-gradient(to bottom, #1a2b3c, #0f1f2e);
-    background-image: url("/static/quintel.png"), linear-gradient(to bottom, #1a2b3c, #0f1f2e);
-    background-size: cover;
-    background-position: center center;
+    background-image: url("/static/quintel.png");
+    background-size: contain;
+    background-position: center;
     background-attachment: fixed;
     background-repeat: no-repeat;
-    color: #ffffff;
+    background-color: #f8f3f3;
 }
 
 /* Header */
@@ -41,6 +39,7 @@ main {
 
 /* Kontener na kafelki */
 .tile-container {
+    margin-top: 400px; 
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -122,14 +121,12 @@ button:active {
 }
 
 /* Tryb ciemny */
-/* Tryb ciemny */
 body.dark-mode {
     background: url("/static/quintel.png") no-repeat center center, 
                 linear-gradient(to bottom, #0c1a25, #0b1620);
-    background-size: cover;
+    background-size: contain; /* Obraz wypełnia całe tło */
     color: #f0f4f8;
 }
-
 
 body.dark-mode header {
     background-color: rgba(0, 0, 0, 0.8);
@@ -162,6 +159,55 @@ body.dark-mode button:hover {
     background-color: rgba(33, 120, 200, 0.9);
 }
 
+/* Pasek nawigacyjny */
+.navbar {
+    display: flex;
+    justify-content: space-between; /* Rozkłada elementy na przeciwnych końcach */
+    align-items: center; /* Wyrównanie elementów w pionie */
+    background-color: #333; /* Kolor tła */
+    color: white;
+    padding: 10px 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%; /* Pasek zajmuje całą szerokość ekranu */
+    z-index: 1000;
+}
+
+/* Lewa część paska nawigacyjnego */
+.navbar-left {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Odstęp między logo a opisem */
+}
+
+/* Logo */
+.navbar-logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+/* Opis */
+.navbar-description {
+    font-size: 1rem;
+    white-space: nowrap; /* Zapobiega zawijaniu tekstu */
+}
+
+/* Przycisk Księżyca */
+.navbar-toggle {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 5px; /* Minimalny padding */
+    width: auto; /* Dopasowanie szerokości do zawartości */
+    height: auto; /* Dopasowanie wysokości do zawartości */
+    margin-left: auto; /* Przesunięcie księżyca w prawo */
+    margin-right: 20px; /* Odstęp od prawej krawędzi */
+}
+
+
 /* Responsywność */
 @media (max-width: 768px) {
     header {
@@ -175,6 +221,10 @@ body.dark-mode button:hover {
 
     main {
         padding: 10px;
+    }
+
+    .navbar-toggle {
+        font-size: 1.2rem; /* Zmniejszenie księżyca na mniejszych ekranach */
     }
 }
 

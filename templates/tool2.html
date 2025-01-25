@@ -5,11 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tool 2</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
 </head>
 <body>
     <header>
-        <a href="/" style="text-decoration: none; color: inherit;">OSINT Search Tool</a>
-        <button id="dark-mode-toggle">🌙</button>
+        <nav class="navbar">
+            <div class="navbar-left">
+                <a href="/" class="navbar-logo" style="text-decoration: none; color: inherit;">Qintel</a>
+                <span class="navbar-description">OSINT Search Tool</span>
+            </div>
+            <button class="navbar-toggle" id="dark-mode-toggle">🌙</button>
+        </nav>
     </header>
     <main>
         <div class="container">
