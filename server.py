@@ -1,7 +1,7 @@
-from flask import Flask, request, render_template, jsonify
+from flask import Flask, request, render_template, send_file
 from flask_cors import CORS
 import requests
-import os
+import subprocess, os
 from dotenv import load_dotenv
 
 # Załaduj zmienne środowiskowe z pliku .env
@@ -22,25 +22,36 @@ app.secret_key = 'fdfdsfs'  # Wymagane dla funkcji flash
 def home():
     return render_template("index.html")
 
+# Podstrona Tool 2 z obsługą flash
 @app.route("/tool1", methods=['GET', 'POST'])
 def tool1():
     message = ""   # Komunikat po wpisaniu frazy
     results = ""   # Wyniki narzędzia OSINT
-    
+    report_file = ""  # Ścieżka do pliku HTML z raportem
+
+    # Ustaw bazowy folder projektu względem lokalizacji server.py
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+
     if request.method == 'POST':
         # Pobranie frazy z formularza
         search_phrase = request.form.get('text_input', '')
-        
+
         if search_phrase:
             message = f"You searched for: {search_phrase}"
             try:
-                # Podaj prawidłową ścieżkę do Twojego narzędzia OSINT
-                command = f"python3 Digital-Footprint-OSINT-Tool/digital_footprint.py '{search_phrase}'"
+                # Ścieżka do pliku raportu w folderze `hamed`
+                report_file = os.path.join(base_dir, f"whatsmyname_report_{search_phrase}.html")
+                
+                # Komenda uruchamiająca skrypt WhatsMyName
+                command = f"python3 WhatsMyName-Python/whatsmyname.py -u '{search_phrase}'"
                 process = subprocess.run(command, shell=True, capture_output=True, text=True)
                 
                 # Pobieranie wyników z procesu
                 if process.returncode == 0:
-                    results = process.stdout
+                    if os.path.exists(report_file):
+                        return send_file(report_file)  # Zwraca wygenerowany raport jako stronę HTML
+                    else:
+                        results = "Report file not found, but command executed successfully."
                 else:
                     results = f"Error: {process.stderr}"
             except Exception as e:
